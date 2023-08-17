@@ -2,6 +2,7 @@ import requests
 import json
 import csv
 from pymarc import Record, Field, MARCWriter, Subfield
+from datetime import datetime
 
 # Prompt the user for the User-Agent string
 user_agent = input("Enter your User-Agent string: ")
@@ -11,9 +12,13 @@ base_url = 'https://musicbrainz.org/ws/2/'
 # Read barcodes from the text file
 barcodes = [line.strip() for line in open('barcodes.txt', 'r')]
 
+# get current datetime
+time_now = datetime.now().strftime("%y%m%-d_%H%-M") 
+str_time_now = str(time_now)
+
 # Specify the MARC file and CSV file paths
-marc_file = 'search_results.mrc'
-csv_file = 'search_results.csv'
+marc_file = 'search_results' + str_time_now + '.mrc'
+csv_file = 'search_results' + str_time_now + '.csv'
 
 # Initialize a MARC writer and a CSV list
 marc_records = []
