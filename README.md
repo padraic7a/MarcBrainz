@@ -11,4 +11,4 @@ You'll need to register a [user-agent](https://musicbrainz.org/doc/MusicBrainz_A
 
 ## Why the name?
 
-[Back in 2010](https://www.libraryjournal.com/story/marc-must-die) Roy Tennant told us that "Marc must die" and it's problems ahve been well documented. Music CDs have been terminal appearing decline for years. These zombie technologies remain with us, and what do zombies love? ... Brainz! 
+[Back in 2010](https://www.libraryjournal.com/story/marc-must-die) Roy Tennant told us that "Marc must die" but still it lingers. Music CDs have seemingly been in terminal decline for years but are still used and purchased. These zombie technologies remain with us, and what do zombies love? ... Brainz! 
