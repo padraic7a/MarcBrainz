@@ -77,7 +77,7 @@ for barcode in barcodes:
         )
 
         # Add track info field (tag 500)
-        track_info = ", ".join(
+        track_info = " \n".join(
             [
                 f"{track['position']}. {track['title']}"
                 for track in tracklist_data["media"][0]["tracks"]
