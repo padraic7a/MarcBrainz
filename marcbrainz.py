@@ -47,8 +47,19 @@ for barcode in barcodes:
         # Create a new MARC record
         marc_record = Record()
 
+        # Add barcode field (tag 024)
+        marc_record.add_field(
+            Field(
+                tag="024",
+                indicators=["1", " "],
+                subfields=[Subfield(code="", value=barcode)],
+            )
+        )
+
+        # Add Publisher / label_name (tag 028)
+
         # Add title field (tag 245)
-        title = release["title"][0]
+        title = release["title"]
         marc_record.add_field(
             Field(
                 tag="245",
@@ -67,16 +78,21 @@ for barcode in barcodes:
             )
         )
 
-        # Add year field (tag 260)
+        # Add year field (tag 260) a = country, b = label_name, c = date
+        label_name = release["label-info"][0]["label"]["name"]
         marc_record.add_field(
             Field(
                 tag="260",
                 indicators=[" ", " "],
-                subfields=[Subfield(code="c", value=release["date"])],
+                subfields=[
+                    Subfield(code="a", value=release["country"]),
+                    Subfield(code="b", value=label_name),
+                    Subfield(code="c", value=release["date"]),
+                ],
             )
         )
 
-        # Add track info field (tag 500)
+        # Add track info field (tag 505)
         track_info = " \n".join(
             [
                 f"{track['position']}. {track['title']}"
@@ -85,9 +101,19 @@ for barcode in barcodes:
         )
         marc_record.add_field(
             Field(
-                tag="500",
-                indicators=[" ", " "],
+                tag="505",
+                indicators=["0", "0"],
                 subfields=[Subfield(code="a", value=track_info)],
+            )
+        )
+
+        # Add language note (tag 546)
+        language = release["text-representation"]["language"]
+        marc_record.add_field(
+            Field(
+                tag="",
+                indicators=[" ", " "],
+                subfields=[Subfield(code="a", value=language)],
             )
         )
 
