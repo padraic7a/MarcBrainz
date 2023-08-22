@@ -39,7 +39,6 @@ for barcode in barcodes:
         release = data["releases"][
             0
         ]  # Assuming you want information about the first matching release
-
         tracklist_url = f"{base_url}release/{release['id']}?inc=recordings&fmt=json"
         tracklist_response = requests.get(tracklist_url, headers=headers)
         tracklist_data = tracklist_response.json()
@@ -57,14 +56,28 @@ for barcode in barcodes:
         )
 
         # Add Publisher / label_name (tag 028)
-
-        # Add title field (tag 245)
-        title = release["title"]
+        # catalog_nu = release["catalog-number"]
+        label_name = release["label-info"][0]["label"]["name"]
         marc_record.add_field(
             Field(
-                tag="245",
+                tag="028",
                 indicators=["0", "0"],
-                subfields=[Subfield(code="a", value=title)],
+                subfields=[
+                    #           Subfield(code="a", value=catalog_nu),
+                    Subfield(code="b", value=label_name),
+                ],
+            )
+        )
+
+        # Add Bibliographic data field (tag 040)
+        marc_record.add_field(
+            Field(
+                tag="040",
+                indicators=[" ", " "],
+                subfields=[
+                    Subfield(code="a", value="Musicbrainz.org MBID " + release["id"]),
+                    Subfield(code="d", value="Marcbrainz"),
+                ],
             )
         )
 
@@ -75,6 +88,16 @@ for barcode in barcodes:
                 tag="100",
                 indicators=["1", " "],
                 subfields=[Subfield(code="a", value=artist_name)],
+            )
+        )
+
+        # Add title field (tag 245)
+        title = release["title"]
+        marc_record.add_field(
+            Field(
+                tag="245",
+                indicators=["0", "0"],
+                subfields=[Subfield(code="a", value=title)],
             )
         )
 
@@ -111,24 +134,9 @@ for barcode in barcodes:
         language = release["text-representation"]["language"]
         marc_record.add_field(
             Field(
-                tag="",
+                tag="546",
                 indicators=[" ", " "],
                 subfields=[Subfield(code="a", value=language)],
-            )
-        )
-
-        # Add ID field (tag 001)
-        marc_record.add_field(Field(tag="001", data=release["id"]))
-
-        # Add
-        marc_record.add_field(
-            Field(
-                tag="040",
-                indicators=[" ", " "],
-                subfields=[
-                    Subfield(code="a", value="Musicbrainz.org MBID " + release["id"]),
-                    Subfield(code="d", value="Marcbrainz"),
-                ],
             )
         )
 
