@@ -5,6 +5,10 @@ This is a python script which scans a text file containing barcodes and fetches 
 
 ## How to use
 
+It requires installing python(3), and pip installing json, csv, datetime, requests and pymarc. [Version information to be added]
+
+When you run the script it will assume the presence of a barcodes.txt file in the same directory.
+
 You'll need to register a [user-agent](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting#Provide_meaningful_User-Agent_strings) with MusicBrainz to avoid [rate-limiting](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting). 
 
 
