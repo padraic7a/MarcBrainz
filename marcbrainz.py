@@ -115,6 +115,20 @@ for barcode in barcodes:
             )
         )
 
+        # Add physical description field (tag 300)
+        # this is more or less a placeholder. I think geting more details on numbers of discs requires an MBID search
+        marc_record.add_field(
+            Field(
+                tag="300",
+                indicators=[" ", " "],
+                subfields=[
+                    Subfield(code="a", value=release["media"][0]["format"]),
+                    Subfield(code="b", value="digital, stereo"),
+                    Subfield(code="c", value="120 mm"),
+                ],
+            )
+        )
+
         # Add track info field (tag 505)
         track_info = " \n".join(
             [
